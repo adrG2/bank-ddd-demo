@@ -50,6 +50,7 @@
     "walletId": "xxxxx",
     "quantity": "xxxxx",
     "currency": "",
+    "method": "",
     "source": "",
     "concept": ""
 }
@@ -66,6 +67,7 @@
     "walletId": "",
     "destination": "",
     "quantity": "",
-    "currency": ""
+    "currency": "",
+    "concept": ""
 }
 ```

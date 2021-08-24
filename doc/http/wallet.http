@@ -1,0 +1,39 @@
+
+### Create a wallet
+
+POST http://localhost:8080/wallet
+Content-Type: application/json
+
+{
+  "userId": "{{$uuid}}",
+  "password": "1234"
+}
+
+### Visualize a Wallet
+GET http://localhost:8080/wallet?id={{$uuid}}
+Accept: application/json
+
+### Deposit
+POST http://localhost:8080/wallet/deposit
+Content-Type: application/json
+
+{
+  "walletId": "{{$uuid}}",
+  "quantity": "{{$randomInt}}",
+  "currency": "",
+  "source": "",
+  "method": "",
+  "concept": ""
+}
+
+### Transfer
+POST http://localhost:8080/wallet/transfer
+Content-Type: application/json
+
+{
+  "walletId": "{{$uuid}}",
+  "quantity": "{{$randomInt}}",
+  "currency": "",
+  "destination": "{{$uuid}}",
+  "concept": ""
+}
