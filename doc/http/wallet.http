@@ -5,8 +5,7 @@ POST http://localhost:8080/wallet
 Content-Type: application/json
 
 {
-  "userId": "{{$uuid}}",
-  "password": "1234"
+  "userId": "{{$uuid}}"
 }
 
 ### Visualize a Wallet
@@ -19,11 +18,10 @@ Content-Type: application/json
 
 {
   "walletId": "{{$uuid}}",
-  "quantity": "{{$randomInt}}",
-  "currency": "",
-  "source": "",
-  "method": "",
-  "concept": ""
+  "source": "IBAN",
+  "concept": "",
+  "amount": "{{$randomInt}}",
+  "currency": "978"
 }
 
 ### Transfer
@@ -32,8 +30,8 @@ Content-Type: application/json
 
 {
   "walletId": "{{$uuid}}",
-  "quantity": "{{$randomInt}}",
-  "currency": "",
-  "destination": "{{$uuid}}",
-  "concept": ""
+  "destination": "IBAN",
+  "concept": "",
+  "amount": "{{$randomInt}}",
+  "currency": "978"
 }

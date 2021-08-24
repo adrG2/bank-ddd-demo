@@ -47,12 +47,11 @@
 
 ``` 
 {
-    "walletId": "xxxxx",
-    "quantity": "xxxxx",
-    "currency": "",
-    "method": "",
-    "source": "",
-    "concept": ""
+  "walletId": "{{$uuid}}",
+  "source": "IBAN",
+  "concept": "",
+  "amount": "{{$randomInt}}",
+  "currency": "iso code"
 }
 ```
 
@@ -64,10 +63,10 @@
 
 ``` 
 {
-    "walletId": "",
-    "destination": "",
-    "quantity": "",
-    "currency": "",
-    "concept": ""
+  "walletId": "{{$uuid}}",
+  "destination": "IBAN",
+  "concept": "",
+  "amount": "{{$randomInt}}",
+  "currency": "iso code"
 }
 ```
