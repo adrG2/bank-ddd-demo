@@ -10,13 +10,10 @@ public abstract class Identifier implements Serializable {
     protected final String value;
 
     public Identifier(String value) {
+        Objects.requireNonNull(value, "Identifier value must not be null");
         ensureValidUuid(value);
 
         this.value = value;
-    }
-
-    protected Identifier() {
-        this.value = null;
     }
 
     private static void ensureValidUuid(String value) throws IllegalArgumentException {
