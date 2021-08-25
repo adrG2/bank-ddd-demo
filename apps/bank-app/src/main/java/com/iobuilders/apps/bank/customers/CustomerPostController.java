@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-public final class CustomerPutController {
+public final class CustomerPostController {
 
     @PostMapping("/customers")
-    public ResponseEntity<String> index(@RequestBody PutCustomerBody body) {
+    public ResponseEntity<String> post(@RequestBody PostCustomerBody body) {
         final var id = UUID.randomUUID().toString();
         final var responseBody = String.format("Customer with id %s created", id);
         return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
     }
 
-    private static class PutCustomerBody {
+    private static class PostCustomerBody {
         private final String userName;
         private final String email;
         private final String password;
 
-        public PutCustomerBody(String userName, String email, String password) {
+        public PostCustomerBody(String userName, String email, String password) {
             this.userName = userName;
             this.email = email;
             this.password = password;

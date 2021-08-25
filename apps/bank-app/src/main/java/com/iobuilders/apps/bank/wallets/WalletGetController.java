@@ -1,4 +1,4 @@
-package com.iobuilders.apps.bank.customers;
+package com.iobuilders.apps.bank.wallets;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-public final class CustomerGetController {
+public class WalletGetController {
 
-    @GetMapping("/customers/{id}")
+    @GetMapping("/wallets/{id}")
     public ResponseEntity<Map<String, String>> get(@PathVariable String id) {
-        final var customerResponse = Map.of(
-                "id", id,"email", "example@example.com", "userName", "example"
-        );
-        return ResponseEntity.ok().body(customerResponse);
+        final var walletResponse = Map.of("id", id);
+        return ResponseEntity.ok().body(walletResponse);
     }
 }
