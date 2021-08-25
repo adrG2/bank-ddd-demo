@@ -5,6 +5,7 @@
 	<modules>
 		<module>shared</module>
 		<module>customers</module>
+		<module>wallets</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
