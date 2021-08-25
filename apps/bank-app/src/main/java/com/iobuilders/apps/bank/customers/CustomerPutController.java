@@ -5,23 +5,23 @@ import com.iobuilders.bank.customers.application.create.CustomerCreatorCommand;
 import com.iobuilders.bank.shared.domain.UuidGenerator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public final class CustomerPostController {
+public final class CustomerPutController {
 
     private final CustomerCreator creator;
     private final UuidGenerator uuidGenerator;
 
-    public CustomerPostController(CustomerCreator creator, UuidGenerator uuidGenerator) {
+    public CustomerPutController(CustomerCreator creator, UuidGenerator uuidGenerator) {
         this.creator = creator;
         this.uuidGenerator = uuidGenerator;
     }
 
-    @PostMapping("/customers")
-    public ResponseEntity<String> post(@RequestBody PostCustomerBody body) {
+    @PutMapping("/customers")
+    public ResponseEntity<String> put(@RequestBody PostCustomerBody body) {
         final var id = uuidGenerator.generate();
         final var command =
                 CustomerCreatorCommand.create(id, body.email, body.userName, body.password);
