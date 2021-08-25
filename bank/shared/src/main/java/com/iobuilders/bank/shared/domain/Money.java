@@ -1,10 +1,11 @@
 package com.iobuilders.bank.shared.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Objects;
 
-public final class Money {
+public final class Money implements Serializable {
     private final BigDecimal amount;
     private final Currency currency;
 

@@ -9,7 +9,7 @@ Content-Type: application/json
 
 
 ### Visualize a Wallet
-GET http://localhost:8080/wallets/{{$uuid}}
+GET http://localhost:8080/wallets/f01e2573-703c-4a5b-8118-155f22ef9e61
 Accept: application/json
 
 ### Deposit

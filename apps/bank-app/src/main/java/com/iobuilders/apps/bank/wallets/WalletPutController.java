@@ -1,8 +1,8 @@
 package com.iobuilders.apps.bank.wallets;
 
 import com.iobuilders.bank.shared.domain.UuidGenerator;
-import com.iobuilders.bank.wallets.application.WalletCreator;
-import com.iobuilders.bank.wallets.application.WalletCreatorCommand;
+import com.iobuilders.bank.wallets.application.create.WalletCreator;
+import com.iobuilders.bank.wallets.application.create.WalletCreatorCommand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;

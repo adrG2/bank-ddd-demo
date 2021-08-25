@@ -1,4 +1,4 @@
-package com.iobuilders.bank.wallets.application;
+package com.iobuilders.bank.wallets.application.create;
 
 public final class WalletCreatorCommand {
 

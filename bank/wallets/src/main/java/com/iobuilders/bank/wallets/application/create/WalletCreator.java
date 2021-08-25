@@ -1,4 +1,4 @@
-package com.iobuilders.bank.wallets.application;
+package com.iobuilders.bank.wallets.application.create;
 
 import com.iobuilders.bank.shared.domain.Service;
 import com.iobuilders.bank.shared.domain.bus.event.EventBus;
