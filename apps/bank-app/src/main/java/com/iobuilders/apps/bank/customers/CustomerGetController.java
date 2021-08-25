@@ -24,11 +24,11 @@ public final class CustomerGetController {
         final var customerResponse =
                 Map.of(
                         "id",
-                        customer.getId(),
+                        customer.id(),
                         "email",
-                        customer.getEmail().value(),
+                        customer.email().value(),
                         "userName",
-                        customer.getUserName().value());
+                        customer.userName().value());
         return ResponseEntity.ok().body(customerResponse);
     }
 }

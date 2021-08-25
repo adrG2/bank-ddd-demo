@@ -21,10 +21,10 @@ public final class CustomerCreatorCommand {
     }
 
     public static CustomerCreatorCommand from(Customer customer) {
-        final var id = customer.getId();
-        final var email = customer.getEmail();
-        final var userName = customer.getUserName();
-        final var password = customer.getPassword();
+        final var id = customer.id();
+        final var email = customer.email();
+        final var userName = customer.userName();
+        final var password = customer.password();
         return CustomerCreatorCommand.create(
                 id.value(), email.value(), userName.value(), password.value());
     }

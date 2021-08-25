@@ -20,7 +20,7 @@ public final class CustomerCreatorShould extends CustomersUnitTestCase {
     protected void setUp() {
         super.setUp();
 
-        creator = new CustomerCreator(eventBus, repository, bankPasswordEncoder, uuidGenerator);
+        creator = new CustomerCreator(eventBus, repository, bankPasswordEncoder);
     }
 
     @Test

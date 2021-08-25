@@ -13,6 +13,7 @@ import org.springframework.context.annotation.FilterType;
         value = {
             "com.iobuilders.bank.shared",
             "com.iobuilders.bank.customers",
+            "com.iobuilders.bank.wallets",
             "com.iobuilders.apps.bank"
         })
 public class BankAppApplication {

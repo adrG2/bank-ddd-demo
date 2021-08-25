@@ -1,9 +1,6 @@
 package com.iobuilders.bank.customers.infrastructure;
 
-import com.iobuilders.bank.customers.domain.Customer;
-import com.iobuilders.bank.customers.domain.CustomerExists;
-import com.iobuilders.bank.customers.domain.CustomerId;
-import com.iobuilders.bank.customers.domain.CustomerRepository;
+import com.iobuilders.bank.customers.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Singleton;
@@ -20,7 +17,7 @@ public final class InMemoryCustomerRepository implements CustomerRepository {
     public void save(Customer customer) {
         ensureCustomerIsValid(customer);
         ensureCustomerNotExists(customer);
-        customers.put(customer.getId(), customer);
+        customers.put(customer.id(), customer);
     }
 
     private void ensureCustomerIsValid(Customer customer) {
@@ -28,13 +25,13 @@ public final class InMemoryCustomerRepository implements CustomerRepository {
             throw new IllegalArgumentException("Customer must not be null");
         }
 
-        if (customer.getId() == null) {
+        if (customer.id() == null) {
             throw new IllegalArgumentException("CustomerId must not be null");
         }
     }
 
     private void ensureCustomerNotExists(Customer customer) {
-        final var id = customer.getId();
+        final var id = customer.id();
         if (findById(id) != null) {
             throw new CustomerExists(id);
         }
@@ -42,7 +39,15 @@ public final class InMemoryCustomerRepository implements CustomerRepository {
 
     @Override
     public Customer findOrFailById(String id) {
-        return findById(new CustomerId(id));
+        final var customer = findById(new CustomerId(id));
+        ensureCustomerExists(id, customer);
+        return customer;
+    }
+
+    private void ensureCustomerExists(String id, Customer customer) {
+        if (customer == null) {
+            throw new CustomerNotFound(id);
+        }
     }
 
     private Customer findById(CustomerId id) {

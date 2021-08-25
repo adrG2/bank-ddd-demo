@@ -13,13 +13,17 @@ public final class Money {
         this.currency = currency;
     }
 
+    public static Money of(BigDecimal amount) {
+        return new Money(amount, Currency.getInstance("EUR"));
+    }
+
     public Money increment(BigDecimal amountToAdd) {
         final var amountAdded = amount().add(amountToAdd);
         return new Money(amountAdded, currency());
     }
 
     public Money decrement(BigDecimal subtrahend) {
-        BigDecimal amountSubtrahend = amount().subtract(subtrahend);
+        final var amountSubtrahend = amount().subtract(subtrahend);
         return new Money(amountSubtrahend, currency());
     }
 

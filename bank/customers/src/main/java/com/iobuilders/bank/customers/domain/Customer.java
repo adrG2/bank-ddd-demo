@@ -35,19 +35,19 @@ public final class Customer extends AggregateRoot {
         return customer;
     }
 
-    public CustomerId getId() {
+    public CustomerId id() {
         return id;
     }
 
-    public CustomerEmail getEmail() {
+    public CustomerEmail email() {
         return email;
     }
 
-    public CustomerPassword getPassword() {
+    public CustomerPassword password() {
         return password;
     }
 
-    public CustomerUserName getUserName() {
+    public CustomerUserName userName() {
         return userName;
     }
 

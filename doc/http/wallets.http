@@ -4,7 +4,7 @@ PUT http://localhost:8080/wallets
 Content-Type: application/json
 
 {
-  "userId": "{{$uuid}}"
+  "customerId": "{{$uuid}}"
 }
 
 
