@@ -1,0 +1,2 @@
+https://stackoverflow.com/questions/8148684/what-data-type-to-use-for-money-in-java#:~:text=Java%20has%20Currency%20class%20that,a%20library%20to%20represent%20money.&text=You%20can%20use%20Money%20and%20Currency%20API%20(JSR%20354)
+.
