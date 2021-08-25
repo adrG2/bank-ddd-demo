@@ -1,19 +1,31 @@
 package com.iobuilders.apps.bank.customers;
 
+import com.iobuilders.bank.customers.application.create.CustomerCreator;
+import com.iobuilders.bank.customers.application.create.CustomerCreatorCommand;
+import com.iobuilders.bank.shared.domain.UuidGenerator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 public final class CustomerPostController {
 
+    private final CustomerCreator creator;
+    private final UuidGenerator uuidGenerator;
+
+    public CustomerPostController(CustomerCreator creator, UuidGenerator uuidGenerator) {
+        this.creator = creator;
+        this.uuidGenerator = uuidGenerator;
+    }
+
     @PostMapping("/customers")
     public ResponseEntity<String> post(@RequestBody PostCustomerBody body) {
-        final var id = UUID.randomUUID().toString();
+        final var id = uuidGenerator.generate();
+        final var command =
+                CustomerCreatorCommand.create(id, body.email, body.userName, body.password);
+        creator.create(command);
         final var responseBody = String.format("Customer with id %s created", id);
         return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
     }
@@ -27,18 +39,6 @@ public final class CustomerPostController {
             this.userName = userName;
             this.email = email;
             this.password = password;
-        }
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public String getPassword() {
-            return password;
         }
     }
 }

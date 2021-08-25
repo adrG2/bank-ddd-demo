@@ -9,5 +9,5 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/customers/1
+GET http://localhost:8080/customers/3eca748e-76d0-4dd2-8cf7-25d640c7d067
 Content-Type: application/json
