@@ -4,6 +4,7 @@ import com.iobuilders.bank.shared.domain.Service;
 import com.iobuilders.bank.transfers.domain.Transfer;
 import com.iobuilders.bank.transfers.domain.TransferExists;
 import com.iobuilders.bank.transfers.domain.TransferRepository;
+import com.iobuilders.bank.wallets_transfers.domain.TransfersNotFount;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,10 +27,20 @@ public final class InMemoryTransferRepository implements TransferRepository {
 
     @Override
     public List<Transfer> findOrFailAllByWalletId(String walletId) {
-        return transfers.values().stream()
-                .filter(transfer -> compareWalletId(transfer, walletId))
-                .collect(Collectors.toList());
+        final var transfers =
+                InMemoryTransferRepository.transfers.values().stream()
+                        .filter(transfer -> compareWalletId(transfer, walletId))
+                        .collect(Collectors.toList());
+        ensureTransfersFound(transfers);
+        return transfers;
     }
+
+    private void ensureTransfersFound(List<Transfer> transfers) {
+        if (transfers.isEmpty()) {
+            throw new TransfersNotFount();
+        }
+    }
+
     // TODO Improve
     private static boolean compareWalletId(Transfer transfer, String walletId) {
         final var transferWalletId = transfer.walletId().value();

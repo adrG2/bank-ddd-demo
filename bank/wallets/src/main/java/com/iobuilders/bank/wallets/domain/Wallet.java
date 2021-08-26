@@ -5,6 +5,7 @@ import com.iobuilders.bank.shared.domain.AggregateRoot;
 import com.iobuilders.bank.shared.domain.Money;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public final class Wallet extends AggregateRoot {
 
@@ -53,5 +54,25 @@ public final class Wallet extends AggregateRoot {
 
     public Money money() {
         return money;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wallet wallet = (Wallet) o;
+        return Objects.equals(id, wallet.id)
+                && Objects.equals(customerId, wallet.customerId)
+                && Objects.equals(money, wallet.money);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, customerId, money);
+    }
+
+    @Override
+    public String toString() {
+        return "Wallet{" + "id=" + id + ", customerId=" + customerId + ", money=" + money + '}';
     }
 }

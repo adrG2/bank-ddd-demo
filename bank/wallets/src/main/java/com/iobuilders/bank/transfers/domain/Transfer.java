@@ -4,10 +4,11 @@ import com.iobuilders.bank.shared.domain.AggregateRoot;
 import com.iobuilders.bank.shared.domain.Money;
 import com.iobuilders.bank.wallets.domain.WalletId;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public final class Transfer extends AggregateRoot {
+public final class Transfer extends AggregateRoot implements Serializable {
     private final TransferId id;
     private final WalletId walletId;
     private final Money money;
@@ -18,7 +19,6 @@ public final class Transfer extends AggregateRoot {
         this.money = money;
     }
 
-    // deposit
     public static Transfer credit(String id, String walletId, BigDecimal amount) {
         final var transferId = new TransferId(id);
         final var transferWalletId = new WalletId(walletId);
@@ -31,7 +31,6 @@ public final class Transfer extends AggregateRoot {
         return transfer;
     }
 
-    // withdraw
     public static Transfer debit(String id, String walletId, BigDecimal amount) {
         final var transferId = new TransferId(id);
         final var transferWalletId = new WalletId(walletId);

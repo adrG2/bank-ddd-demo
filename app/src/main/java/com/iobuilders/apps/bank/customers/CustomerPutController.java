@@ -31,8 +31,9 @@ public final class CustomerPutController {
         try {
             creator.create(command);
         } catch (CustomerExists ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(ex.getLocalizedMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getLocalizedMessage());
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().build();
         }
         return new ResponseEntity<>(
                 String.format("Customer with id %s created", id), HttpStatus.CREATED);
