@@ -26,7 +26,7 @@ public final class Transfer extends AggregateRoot implements Serializable {
         final var transfer = new Transfer(transferId, transferWalletId, transferMoney);
         final var event =
                 new TransferCreditCreated(
-                        transferId.value(), transferId.value(), transferMoney.amount());
+                        transferId.value(), transferWalletId.value(), transferMoney.amount());
         transfer.pushEvent(event);
         return transfer;
     }
@@ -38,7 +38,7 @@ public final class Transfer extends AggregateRoot implements Serializable {
         final var transfer = new Transfer(transferId, transferWalletId, transferMoney);
         final var event =
                 new TransferDebitCreated(
-                        transferId.value(), transferId.value(), transferMoney.amount());
+                        transferId.value(), transferWalletId.value(), transferMoney.amount());
         transfer.pushEvent(event);
         return transfer;
     }

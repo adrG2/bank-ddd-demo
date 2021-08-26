@@ -5,7 +5,7 @@ import java.util.List;
 public interface TransferRepository {
     Transfer findOrFailByTransferId(String transferId);
 
-    List<Transfer> findOrFailAllByWalletId(String walletId);
+    List<Transfer> findAllByWalletId(String walletId);
 
     void save(Transfer transfer);
 }

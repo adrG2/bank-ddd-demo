@@ -22,9 +22,7 @@ public final class WalletTransfersFinder {
 
     public WalletTransfers find(String walletId) {
         final var wallet = walletRepository.findOrFailById(walletId);
-        logger.debug("Wallet with id {} found: {}", walletId, wallet);
-        final var transfers = transferRepository.findOrFailAllByWalletId(walletId);
-        transfers.forEach(transfer -> logger.debug("Transfer {}", transfer));
+        final var transfers = transferRepository.findAllByWalletId(walletId);
         return new WalletTransfers(wallet, transfers);
     }
 }

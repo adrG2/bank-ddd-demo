@@ -16,6 +16,6 @@ public class TransferFinderAll {
     }
 
     public List<Transfer> find(String walletId) {
-        return repository.findOrFailAllByWalletId(walletId);
+        return repository.findAllByWalletId(walletId);
     }
 }

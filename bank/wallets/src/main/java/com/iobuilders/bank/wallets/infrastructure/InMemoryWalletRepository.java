@@ -2,7 +2,6 @@ package com.iobuilders.bank.wallets.infrastructure;
 
 import com.iobuilders.bank.shared.domain.Service;
 import com.iobuilders.bank.wallets.domain.Wallet;
-import com.iobuilders.bank.wallets.domain.WalletExists;
 import com.iobuilders.bank.wallets.domain.WalletNotFound;
 import com.iobuilders.bank.wallets.domain.WalletRepository;
 
@@ -19,7 +18,6 @@ public final class InMemoryWalletRepository implements WalletRepository {
     @Override
     public void save(Wallet wallet) {
         ensureWalletIsValid(wallet);
-        ensureWalletNotExists(wallet);
         wallets.put(wallet.id().value(), wallet);
     }
 
@@ -33,13 +31,6 @@ public final class InMemoryWalletRepository implements WalletRepository {
         }
     }
 
-    private void ensureWalletNotExists(Wallet wallet) {
-        final var id = wallet.id();
-        if (findById(id.value()) != null) {
-            throw new WalletExists(id.value());
-        }
-    }
-
     @Override
     public Wallet findOrFailById(String id) {
         final var wallet = findById(id);
@@ -47,13 +38,13 @@ public final class InMemoryWalletRepository implements WalletRepository {
         return wallet;
     }
 
+    private Wallet findById(String id) {
+        return wallets.get(id);
+    }
+
     private void ensureWalletExists(String id, Wallet wallet) {
         if (wallet == null) {
             throw new WalletNotFound(id);
         }
-    }
-
-    private Wallet findById(String id) {
-        return wallets.get(id);
     }
 }

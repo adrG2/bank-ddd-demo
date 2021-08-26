@@ -23,21 +23,17 @@ public final class Money implements Serializable {
         return of(amount);
     }
 
-    public static Money fromNegative(BigDecimal amount) {
-        ensureAmountIsNegative(amount);
-        return of(amount);
-    }
-
     public static void ensureAmountIsPositive(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Initial balance must be positive");
+            throw new IllegalArgumentException(String.format("Amount %s must be positive", amount));
         }
     }
 
-    public static void ensureAmountIsNegative(BigDecimal amount) {
+    public static Money fromNegative(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) >= 0) {
-            throw new IllegalArgumentException("Initial balance must be positive");
+            throw new IllegalArgumentException(String.format("Amount %s must be negative", amount));
         }
+        return of(amount);
     }
 
     public Money increment(BigDecimal amountToAdd) {

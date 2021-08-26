@@ -1,19 +1,21 @@
 package com.iobuilders.apps.bank.wallets;
 
+import com.iobuilders.apps.bank.customers.CustomerGetController;
+import com.iobuilders.bank.shared.infrastructure.GuardClauses;
 import com.iobuilders.bank.wallets.application.find.WalletFinderById;
-import com.iobuilders.bank.wallets.domain.Wallet;
 import com.iobuilders.bank.wallets.domain.WalletNotFound;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.Serializable;
-import java.util.Map;
-
 @RestController
 public class WalletGetController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerGetController.class);
 
     private final WalletFinderById finder;
 
@@ -22,31 +24,17 @@ public class WalletGetController {
     }
 
     @GetMapping("/wallets/{id}")
-    public ResponseEntity<Map<String, Serializable>> get(@PathVariable String id) {
+    public ResponseEntity<WalletResponse> get(@PathVariable String id) {
         try {
-            ensureIdNotBlank(id);
+            GuardClauses.ensureStringIsNotBlank(id);
             var wallet = finder.find(id);
-            return ResponseEntity.ok().body(buildResponse(wallet));
+            return ResponseEntity.ok().body(WalletResponse.from(wallet));
         } catch (WalletNotFound notFound) {
-            return ResponseEntity.notFound().build();
+            logger.error(notFound.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (IllegalArgumentException badRequest) {
+            logger.error(badRequest.getMessage());
             return ResponseEntity.badRequest().build();
         }
-    }
-
-    private void ensureIdNotBlank(String id) {
-        if (!StringUtils.hasText(id)) {
-            throw new IllegalArgumentException("Id must be not null");
-        }
-    }
-
-    private Map<String, Serializable> buildResponse(Wallet wallet) {
-        return Map.of(
-                "id",
-                wallet.id().value(),
-                "customerId",
-                wallet.customerId().value(),
-                "money",
-                wallet.money());
     }
 }

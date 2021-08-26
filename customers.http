@@ -1,13 +1,13 @@
-###
+### Step 1: Create a Customer
 PUT http://localhost:8080/customers
 Content-Type: application/json
 
 {
-  "userName": "xxx",
+  "userName": "customer",
   "email": "customer@gmail.com",
   "password": "1234"
 }
 
-###
-GET http://localhost:8080/customers/eb7b6465-3e14-47c4-b3ed-e0270e51ee07
+### Step 2: Get a Customer
+GET http://localhost:8080/customers/6ece549e-92fb-475d-9a6e-647bc38a6c2f
 Content-Type: application/json

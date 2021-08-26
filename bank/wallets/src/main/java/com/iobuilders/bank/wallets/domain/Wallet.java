@@ -11,12 +11,12 @@ public final class Wallet extends AggregateRoot {
 
     private final WalletId id;
     private final CustomerId customerId;
-    private final Money money;
+    private final Money balance;
 
-    private Wallet(WalletId id, CustomerId customerId, Money money) {
+    private Wallet(WalletId id, CustomerId customerId, Money balance) {
         this.id = id;
         this.customerId = customerId;
-        this.money = money;
+        this.balance = balance;
     }
 
     public static Wallet create(String id, String customerId) {
@@ -35,13 +35,12 @@ public final class Wallet extends AggregateRoot {
     }
 
     public Wallet debit(BigDecimal amount) {
-        Money.ensureAmountIsPositive(amount);
-        return new Wallet(id(), customerId(), money().decrement(amount));
+        return new Wallet(id(), customerId(), balance().decrement(amount.abs()));
     }
 
     public Wallet credit(BigDecimal amount) {
         Money.ensureAmountIsPositive(amount);
-        return new Wallet(id(), customerId(), money().increment(amount));
+        return new Wallet(id(), customerId(), balance().increment(amount));
     }
 
     public WalletId id() {
@@ -52,8 +51,8 @@ public final class Wallet extends AggregateRoot {
         return customerId;
     }
 
-    public Money money() {
-        return money;
+    public Money balance() {
+        return balance;
     }
 
     @Override
@@ -63,16 +62,16 @@ public final class Wallet extends AggregateRoot {
         Wallet wallet = (Wallet) o;
         return Objects.equals(id, wallet.id)
                 && Objects.equals(customerId, wallet.customerId)
-                && Objects.equals(money, wallet.money);
+                && Objects.equals(balance, wallet.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerId, money);
+        return Objects.hash(id, customerId, balance);
     }
 
     @Override
     public String toString() {
-        return "Wallet{" + "id=" + id + ", customerId=" + customerId + ", money=" + money + '}';
+        return "Wallet{" + "id=" + id + ", customerId=" + customerId + ", money=" + balance + '}';
     }
 }
