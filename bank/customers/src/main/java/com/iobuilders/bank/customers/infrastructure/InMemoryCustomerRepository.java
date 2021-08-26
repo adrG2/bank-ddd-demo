@@ -33,7 +33,7 @@ public final class InMemoryCustomerRepository implements CustomerRepository {
     private void ensureCustomerNotExists(Customer customer) {
         final var id = customer.id();
         if (findById(id) != null) {
-            throw new CustomerExists(id);
+            throw new CustomerExists(id.value());
         }
     }
 

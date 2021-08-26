@@ -1,6 +1,7 @@
 package com.iobuilders.apps.bank.wallets;
 
 import com.iobuilders.bank.shared.domain.UuidGenerator;
+import com.iobuilders.bank.wallets.application.WalletNotCreated;
 import com.iobuilders.bank.wallets.application.create.WalletCreator;
 import com.iobuilders.bank.wallets.application.create.WalletCreatorCommand;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,12 @@ public class WalletPutController {
     @PutMapping("/wallets")
     public ResponseEntity<String> post(@RequestBody PostWalletBody body) {
         final var id = uuidGenerator.generate();
-        creator.create(WalletCreatorCommand.create(id, body.getCustomerId()));
+        try {
+            creator.create(WalletCreatorCommand.create(id, body.getCustomerId()));
+        } catch (WalletNotCreated ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ex.getLocalizedMessage());
+        }
         final var responseBody = String.format("Wallet with id %s created", id);
         return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
     }

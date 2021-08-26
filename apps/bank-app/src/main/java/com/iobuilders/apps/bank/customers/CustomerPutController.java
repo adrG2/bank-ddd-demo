@@ -2,7 +2,9 @@ package com.iobuilders.apps.bank.customers;
 
 import com.iobuilders.bank.customers.application.create.CustomerCreator;
 import com.iobuilders.bank.customers.application.create.CustomerCreatorCommand;
+import com.iobuilders.bank.customers.domain.CustomerExists;
 import com.iobuilders.bank.shared.domain.UuidGenerator;
+import com.iobuilders.bank.shared.infrastructure.GuardClauses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,11 +25,17 @@ public final class CustomerPutController {
     @PutMapping("/customers")
     public ResponseEntity<String> put(@RequestBody PostCustomerBody body) {
         final var id = uuidGenerator.generate();
+        ensureValidInputParameters(id, body);
         final var command =
                 CustomerCreatorCommand.create(id, body.email, body.userName, body.password);
-        creator.create(command);
-        final var responseBody = String.format("Customer with id %s created", id);
-        return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
+        try {
+            creator.create(command);
+        } catch (CustomerExists ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ex.getLocalizedMessage());
+        }
+        return new ResponseEntity<>(
+                String.format("Customer with id %s created", id), HttpStatus.CREATED);
     }
 
     private static class PostCustomerBody {
@@ -40,5 +48,12 @@ public final class CustomerPutController {
             this.email = email;
             this.password = password;
         }
+    }
+
+    private void ensureValidInputParameters(String id, PostCustomerBody body) {
+        GuardClauses.ensureStringIsNotBlank(id);
+        GuardClauses.ensureStringIsNotBlank(body.userName);
+        GuardClauses.ensureStringIsNotBlank(body.email);
+        GuardClauses.ensureStringIsNotBlank(body.password);
     }
 }

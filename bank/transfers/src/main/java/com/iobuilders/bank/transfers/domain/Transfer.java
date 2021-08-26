@@ -18,25 +18,27 @@ public final class Transfer extends AggregateRoot {
         this.money = money;
     }
 
-    public Transfer deposit(String id, String walletId, BigDecimal amount) {
+    // deposit
+    public static Transfer credit(String id, String walletId, BigDecimal amount) {
         final var transferId = new TransferId(id);
         final var transferWalletId = new WalletId(walletId);
         final var transferMoney = Money.fromPositive(amount);
         final var transfer = new Transfer(transferId, transferWalletId, transferMoney);
         final var event =
-                new TransferDepositCreated(
+                new TransferCreditCreated(
                         transferId.value(), transferId.value(), transferMoney.amountAsString());
         transfer.pushEvent(event);
         return transfer;
     }
 
-    public Transfer credit(String id, String walletId, BigDecimal amount) {
+    // withdraw
+    public static Transfer debit(String id, String walletId, BigDecimal amount) {
         final var transferId = new TransferId(id);
         final var transferWalletId = new WalletId(walletId);
         final var transferMoney = Money.fromNegative(amount);
         final var transfer = new Transfer(transferId, transferWalletId, transferMoney);
         final var event =
-                new TransferCreditCreated(
+                new TransferDebitCreated(
                         transferId.value(), transferId.value(), transferMoney.amountAsString());
         transfer.pushEvent(event);
         return transfer;
