@@ -2,7 +2,7 @@ package com.iobuilders.apps.bank.wallets;
 
 import com.iobuilders.bank.wallets.application.find.WalletFinderById;
 import com.iobuilders.bank.wallets.domain.Wallet;
-import com.iobuilders.bank.wallets.infrastructure.WalletNotFound;
+import com.iobuilders.bank.wallets.domain.WalletNotFound;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;

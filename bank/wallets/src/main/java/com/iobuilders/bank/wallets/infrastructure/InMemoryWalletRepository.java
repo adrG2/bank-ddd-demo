@@ -3,6 +3,7 @@ package com.iobuilders.bank.wallets.infrastructure;
 import com.iobuilders.bank.shared.domain.Service;
 import com.iobuilders.bank.wallets.domain.Wallet;
 import com.iobuilders.bank.wallets.domain.WalletId;
+import com.iobuilders.bank.wallets.domain.WalletNotFound;
 import com.iobuilders.bank.wallets.domain.WalletRepository;
 
 import javax.inject.Singleton;
