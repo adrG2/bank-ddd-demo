@@ -12,23 +12,20 @@ Content-Type: application/json
 GET http://localhost:8080/wallets/f01e2573-703c-4a5b-8118-155f22ef9e61
 Accept: application/json
 
-### Deposit
-PUT http://localhost:8080/wallets/deposit
+### Credit
+PUT http://localhost:8080/transfers/credit
 Content-Type: application/json
 
 {
   "walletId": "{{$uuid}}",
-  "amount": "{{$randomInt}}"
+  "amount": "100"
 }
 
-### Transfer
-PUT http://localhost:8080/wallets/transfer
+### Debit
+PUT http://localhost:8080/transfers/debit
 Content-Type: application/json
 
 {
   "walletId": "{{$uuid}}",
-  "destination": "IBAN",
-  "concept": "",
-  "amount": "{{$randomInt}}",
-  "currency": "978"
+  "amount": "50"
 }

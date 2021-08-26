@@ -6,17 +6,17 @@ import com.iobuilders.bank.wallets.domain.WalletRepository;
 import java.math.BigDecimal;
 
 @Service
-public final class WalletDepositor {
+public final class WalletDebit {
 
     private final WalletRepository repository;
 
-    public WalletDepositor(WalletRepository repository) {
+    public WalletDebit(WalletRepository repository) {
         this.repository = repository;
     }
 
-    public void deposit(String walletId, BigDecimal amount) {
+    public void debit(String walletId, BigDecimal amount) {
         final var wallet = repository.findOrFailById(walletId);
-        final var walletDeposited = wallet.deposit(amount);
-        repository.save(walletDeposited);
+        final var walletDebited = wallet.debit(amount);
+        repository.save(walletDebited);
     }
 }

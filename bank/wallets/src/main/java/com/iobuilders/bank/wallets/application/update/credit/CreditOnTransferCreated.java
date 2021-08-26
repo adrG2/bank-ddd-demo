@@ -1,12 +1,12 @@
 package com.iobuilders.bank.wallets.application.update.credit;
 
 import com.iobuilders.bank.shared.domain.Service;
-import com.iobuilders.bank.shared.domain.bus.event.DomainEvent;
 import com.iobuilders.bank.shared.domain.bus.event.DomainEventSubscriber;
+import com.iobuilders.bank.transfers.domain.TransferCreditCreated;
 import org.springframework.context.event.EventListener;
 
 @Service
-@DomainEventSubscriber({})
+@DomainEventSubscriber({TransferCreditCreated.class})
 public final class CreditOnTransferCreated {
 
     private final WalletCreditor creditor;
@@ -16,7 +16,7 @@ public final class CreditOnTransferCreated {
     }
 
     @EventListener
-    public void on(DomainEvent event) {
-        creditor.credit(null, null);
+    public void on(TransferCreditCreated event) {
+        creditor.credit(event.getWalletId(), event.getAmount());
     }
 }

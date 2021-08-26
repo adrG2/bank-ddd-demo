@@ -22,8 +22,8 @@ public final class TransferDebitPutController {
         this.creator = creator;
     }
 
-    @PutMapping
-    public ResponseEntity<String> put(@RequestBody TransferBody body) {
+    @PutMapping("/transfers/debit")
+    public ResponseEntity<String> debit(@RequestBody TransferBody body) {
         final var id = uuidGenerator.generate();
         ensureValidInputParameters(id, body);
         final var command = new TransferCreatorCommand(id, body.getWalletId(), body.getAmount());

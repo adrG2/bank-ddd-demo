@@ -14,6 +14,7 @@ import org.springframework.context.annotation.FilterType;
             "com.iobuilders.bank.shared",
             "com.iobuilders.bank.customers",
             "com.iobuilders.bank.wallets",
+            "com.iobuilders.bank.transfers",
             "com.iobuilders.apps.bank"
         })
 public class BankAppApplication {

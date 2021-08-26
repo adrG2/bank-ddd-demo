@@ -33,14 +33,14 @@ public final class Wallet extends AggregateRoot {
         return wallet;
     }
 
-    public Wallet deposit(BigDecimal amount) {
+    public Wallet debit(BigDecimal amount) {
         Money.ensureAmountIsPositive(amount);
-        return new Wallet(id(), customerId(), money().increment(amount));
+        return new Wallet(id(), customerId(), money().decrement(amount));
     }
 
     public Wallet credit(BigDecimal amount) {
         Money.ensureAmountIsPositive(amount);
-        return new Wallet(id(), customerId(), money().decrement(amount));
+        return new Wallet(id(), customerId(), money().increment(amount));
     }
 
     public WalletId id() {
