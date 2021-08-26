@@ -11,13 +11,13 @@ import java.util.Map;
 @Service
 public final class InMemoryCustomerRepository implements CustomerRepository {
 
-    private final Map<CustomerId, Customer> customers = new HashMap<>();
+    private final Map<String, Customer> customers = new HashMap<>();
 
     @Override
     public void save(Customer customer) {
         ensureCustomerIsValid(customer);
         ensureCustomerNotExists(customer);
-        customers.put(customer.id(), customer);
+        customers.put(customer.id().value(), customer);
     }
 
     private void ensureCustomerIsValid(Customer customer) {
@@ -51,6 +51,6 @@ public final class InMemoryCustomerRepository implements CustomerRepository {
     }
 
     private Customer findById(CustomerId id) {
-        return customers.get(id);
+        return customers.get(id.value());
     }
 }

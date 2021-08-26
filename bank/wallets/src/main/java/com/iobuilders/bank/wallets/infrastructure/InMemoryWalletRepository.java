@@ -2,7 +2,6 @@ package com.iobuilders.bank.wallets.infrastructure;
 
 import com.iobuilders.bank.shared.domain.Service;
 import com.iobuilders.bank.wallets.domain.Wallet;
-import com.iobuilders.bank.wallets.domain.WalletId;
 import com.iobuilders.bank.wallets.domain.WalletNotFound;
 import com.iobuilders.bank.wallets.domain.WalletRepository;
 
@@ -14,13 +13,13 @@ import java.util.Map;
 @Service
 public final class InMemoryWalletRepository implements WalletRepository {
 
-    private static final Map<WalletId, Wallet> wallets = new HashMap<>();
+    private static final Map<String, Wallet> wallets = new HashMap<>();
 
     @Override
     public void save(Wallet wallet) {
         ensureWalletIsValid(wallet);
         ensureWalletNotExists(wallet);
-        wallets.put(wallet.id(), wallet);
+        wallets.put(wallet.id().value(), wallet);
     }
 
     private void ensureWalletIsValid(Wallet wallet) {
@@ -54,6 +53,6 @@ public final class InMemoryWalletRepository implements WalletRepository {
     }
 
     private Wallet findById(String id) {
-        return wallets.get(new WalletId(id));
+        return wallets.get(id);
     }
 }
