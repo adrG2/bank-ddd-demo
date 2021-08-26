@@ -18,10 +18,7 @@ Content-Type: application/json
 
 {
   "walletId": "{{$uuid}}",
-  "source": "IBAN",
-  "concept": "",
-  "amount": "{{$randomInt}}",
-  "currency": "978"
+  "amount": "{{$randomInt}}"
 }
 
 ### Transfer

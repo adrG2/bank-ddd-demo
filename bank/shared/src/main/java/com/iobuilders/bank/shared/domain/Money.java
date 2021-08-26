@@ -18,6 +18,18 @@ public final class Money implements Serializable {
         return new Money(amount, Currency.getInstance("EUR"));
     }
 
+    public static void ensureAmountIsPositive(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) >= 0) {
+            throw new IllegalArgumentException("Initial balance must be positive");
+        }
+    }
+
+    public static void ensureAmountIsNegative(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Initial balance must be positive");
+        }
+    }
+
     public Money increment(BigDecimal amountToAdd) {
         final var amountAdded = amount().add(amountToAdd);
         return new Money(amountAdded, currency());
@@ -34,6 +46,10 @@ public final class Money implements Serializable {
 
     public BigDecimal amount() {
         return amount;
+    }
+
+    public String amountAsString() {
+        return amount.toString();
     }
 
     @Override
