@@ -10,13 +10,7 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(
         includeFilters =
                 @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Service.class),
-        value = {
-            "com.iobuilders.bank.shared",
-            "com.iobuilders.bank.customers",
-            "com.iobuilders.bank.wallets",
-            "com.iobuilders.bank.transfers",
-            "com.iobuilders.apps.bank"
-        })
+        value = {"com.iobuilders.bank", "com.iobuilders.apps.bank"})
 public class BankAppApplication {
 
     public static void main(String[] args) {

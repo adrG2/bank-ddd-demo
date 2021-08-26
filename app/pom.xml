@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.iobuilders.apps.bank</groupId>
-    <artifactId>bank-app</artifactId>
+    <artifactId>app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bank-app</name>
+    <name>app</name>
     <description>Bank rest api app</description>
     <properties>
         <java.version>11</java.version>
@@ -41,12 +41,6 @@
         <dependency>
             <groupId>com.iobuilders.bank</groupId>
             <artifactId>wallets</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.iobuilders.bank</groupId>
-            <artifactId>transfers</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
