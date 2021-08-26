@@ -26,26 +26,22 @@ public final class Wallet extends AggregateRoot {
     }
 
     public static Wallet createWithInitialBalance(String id, String customerId, BigDecimal amount) {
-        ensureAmountIsPositive(amount);
+        Money.ensureAmountIsPositive(amount);
         final var wallet =
                 new Wallet(new WalletId(id), new CustomerId(customerId), Money.of(amount));
         wallet.pushEvent(new WalletCreated(id, customerId));
         return wallet;
     }
 
-    private static void ensureAmountIsPositive(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Initial balacen must be positive");
-        }
+    public Wallet deposit(BigDecimal amount) {
+        Money.ensureAmountIsPositive(amount);
+        return new Wallet(id(), customerId(), money().increment(amount));
     }
 
-    //    public void deposit(BigDecimal amount) {
-    //        this.money = money().increment(amount);
-    //    }
-    //
-    //    public void withDraw(BigDecimal amount) {
-    //        this.money = money().decrement(amount);
-    //    }
+    public Wallet credit(BigDecimal amount) {
+        Money.ensureAmountIsPositive(amount);
+        return new Wallet(id(), customerId(), money().decrement(amount));
+    }
 
     public WalletId id() {
         return id;
