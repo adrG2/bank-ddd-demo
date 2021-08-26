@@ -1,4 +1,4 @@
-package com.iobuilders.bank.transfers.application;
+package com.iobuilders.bank.transfers.application.create;
 
 public final class TransferCreatorCommand {
 

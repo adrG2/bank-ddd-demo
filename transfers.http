@@ -1,0 +1,17 @@
+### Credit
+PUT http://localhost:8080/transfers/credit
+Content-Type: application/json
+
+{
+  "walletId": "{{$uuid}}",
+  "amount": "100"
+}
+
+### Debit
+PUT http://localhost:8080/transfers/debit
+Content-Type: application/json
+
+{
+  "walletId": "{{$uuid}}",
+  "amount": "50"
+}

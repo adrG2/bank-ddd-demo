@@ -12,20 +12,3 @@ Content-Type: application/json
 GET http://localhost:8080/wallets/f01e2573-703c-4a5b-8118-155f22ef9e61
 Accept: application/json
 
-### Credit
-PUT http://localhost:8080/transfers/credit
-Content-Type: application/json
-
-{
-  "walletId": "{{$uuid}}",
-  "amount": "100"
-}
-
-### Debit
-PUT http://localhost:8080/transfers/debit
-Content-Type: application/json
-
-{
-  "walletId": "{{$uuid}}",
-  "amount": "50"
-}
