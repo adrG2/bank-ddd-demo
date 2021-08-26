@@ -18,14 +18,24 @@ public final class Money implements Serializable {
         return new Money(amount, Currency.getInstance("EUR"));
     }
 
+    public static Money fromPositive(BigDecimal amount) {
+        ensureAmountIsPositive(amount);
+        return of(amount);
+    }
+
+    public static Money fromNegative(BigDecimal amount) {
+        ensureAmountIsNegative(amount);
+        return of(amount);
+    }
+
     public static void ensureAmountIsPositive(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) >= 0) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Initial balance must be positive");
         }
     }
 
     public static void ensureAmountIsNegative(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+        if (amount.compareTo(BigDecimal.ZERO) >= 0) {
             throw new IllegalArgumentException("Initial balance must be positive");
         }
     }
