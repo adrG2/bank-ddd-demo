@@ -1,4 +1,4 @@
-package com.iobuilders.bank.transfers;
+package com.iobuilders.bank.transfers.domain;
 
 import com.iobuilders.bank.shared.domain.Identifier;
 
