@@ -20,3 +20,5 @@
 5. Put a credit(deposit)
 6. Put a debit(withdraw). Must be negative.
 7. Get a wallet with transfers
+
+Disclaimer: The uuid of the http files must be changed when the resources are created.
