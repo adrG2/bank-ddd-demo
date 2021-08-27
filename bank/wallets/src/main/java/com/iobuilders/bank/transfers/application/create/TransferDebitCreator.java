@@ -18,6 +18,7 @@ public final class TransferDebitCreator {
         this.repository = repository;
     }
 
+    // TODO Abstract (factory method?)
     public void create(TransferCreatorCommand command) {
         final var amount = new BigDecimal(command.getAmount());
         final var transfer = Transfer.debit(command.getId(), command.getWalletId(), amount);
