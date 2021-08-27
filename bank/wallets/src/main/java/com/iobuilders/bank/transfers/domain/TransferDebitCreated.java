@@ -5,6 +5,7 @@ import com.iobuilders.bank.shared.domain.bus.event.DomainEvent;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+// TODO Extract to TransferDomainEvent
 public class TransferDebitCreated extends DomainEvent {
 
     private final String walletId;
