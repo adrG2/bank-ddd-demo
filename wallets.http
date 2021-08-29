@@ -3,11 +3,11 @@ PUT http://localhost:8080/wallets
 Content-Type: application/json
 
 {
-  "customerId": "90d50a32-3849-42d3-9c8f-d2e68523336b"
+  "customerId": "0a839017-5dec-4eb7-949c-7b9880ebda18"
 }
 
 ### Step 4: Visualize a Wallet
-GET http://localhost:8080/wallets/fff00e1b-e992-4535-b1bc-d874d0a6af1e
+GET http://localhost:8080/wallets/05b13068-c262-4e53-9035-c2189ae10c1a
 Accept: application/json
 
 ### Visualize a Wallet with transfers

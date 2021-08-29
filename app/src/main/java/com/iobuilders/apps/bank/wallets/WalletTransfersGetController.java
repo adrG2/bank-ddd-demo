@@ -30,7 +30,6 @@ public final class WalletTransfersGetController {
     @GetMapping("/wallet/{walletId}/transfers")
     public ResponseEntity<WalletTransfersResponse> get(@PathVariable String walletId) {
         try {
-            logger.debug("Get all transfers to walletId {}", walletId);
             GuardClauses.ensureStringIsNotBlank(walletId);
             final var walletTransfers = finder.find(walletId);
             return ResponseEntity.ok().body(WalletTransfersResponse.from(walletTransfers));

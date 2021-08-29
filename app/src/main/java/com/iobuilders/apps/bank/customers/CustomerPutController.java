@@ -5,6 +5,8 @@ import com.iobuilders.bank.customers.application.create.CustomerCreatorCommand;
 import com.iobuilders.bank.customers.domain.CustomerExists;
 import com.iobuilders.bank.shared.domain.UuidGenerator;
 import com.iobuilders.bank.shared.infrastructure.GuardClauses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public final class CustomerPutController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerPutController.class);
 
     private final CustomerCreator creator;
     private final UuidGenerator uuidGenerator;
@@ -31,8 +35,10 @@ public final class CustomerPutController {
         try {
             creator.create(command);
         } catch (CustomerExists ex) {
+            logger.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getLocalizedMessage());
         } catch (IllegalArgumentException ex) {
+            logger.error(ex.getMessage());
             return ResponseEntity.badRequest().build();
         }
         return new ResponseEntity<>(

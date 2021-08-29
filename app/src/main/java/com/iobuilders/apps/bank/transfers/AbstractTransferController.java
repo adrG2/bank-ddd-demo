@@ -5,10 +5,14 @@ import com.iobuilders.bank.shared.infrastructure.GuardClauses;
 import com.iobuilders.bank.transfers.application.create.TransferCreator;
 import com.iobuilders.bank.transfers.application.create.TransferCreatorCommand;
 import com.iobuilders.bank.transfers.domain.TransferExists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public abstract class AbstractTransferController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AbstractTransferController.class);
 
     private final UuidGenerator uuidGenerator;
     private final TransferCreator creator;
@@ -26,8 +30,10 @@ public abstract class AbstractTransferController {
             final var response = new TransferResponse(id, body.getWalletId(), body.getAmount());
             return ResponseEntity.ok(response);
         } catch (TransferExists ex) {
+            logger.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } catch (IllegalArgumentException ex) {
+            logger.error(ex.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
