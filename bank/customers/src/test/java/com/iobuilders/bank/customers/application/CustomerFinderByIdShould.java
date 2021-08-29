@@ -3,6 +3,7 @@ package com.iobuilders.bank.customers.application;
 import com.iobuilders.bank.customers.CustomersUnitTestCase;
 import com.iobuilders.bank.customers.application.find.CustomerFinderById;
 import com.iobuilders.bank.customers.domain.CustomerMother;
+import com.iobuilders.bank.customers.domain.CustomerNotFound;
 import com.iobuilders.bank.shared.domain.UuidMother;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,21 @@ public final class CustomerFinderByIdShould extends CustomersUnitTestCase {
 
     @Test
     void throw_an_exception_when_repository_is_down() {
-        final Executable executable = () -> shouldNotFound(UuidMother.random());
+        final Executable executable =
+                () -> {
+                    shouldNotFoundRepositoryDown(UuidMother.random());
+                    finder.find(UuidMother.random());
+                };
         assertThrows(Exception.class, executable);
+    }
+
+    @Test
+    void throw_an_exception_when_customer_not_found() {
+        final Executable executable =
+                () -> {
+                    shouldNotFound();
+                    finder.find(UuidMother.random());
+                };
+        assertThrows(CustomerNotFound.class, executable);
     }
 }

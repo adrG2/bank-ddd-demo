@@ -2,6 +2,7 @@ package com.iobuilders.bank.customers;
 
 import com.iobuilders.bank.customers.domain.Customer;
 import com.iobuilders.bank.customers.domain.CustomerExists;
+import com.iobuilders.bank.customers.domain.CustomerNotFound;
 import com.iobuilders.bank.customers.domain.CustomerRepository;
 import com.iobuilders.bank.shared.domain.BankPasswordEncoder;
 import com.iobuilders.bank.shared.infrastructure.UnitTestCase;
@@ -30,17 +31,23 @@ public class CustomersUnitTestCase extends UnitTestCase {
     }
 
     public void shouldThrowCustomerExists(Customer customer) {
-        Mockito.doThrow(new CustomerExists(customer.id().value()))
-                .when(repository)
-                .save(Mockito.any(Customer.class));
+        Mockito.doThrow(CustomerExists.class).when(repository).save(Mockito.any(Customer.class));
     }
 
     public void shouldFind(String id, Customer customer) {
         Mockito.when(repository.findOrFailById(id)).thenReturn(customer);
     }
 
-    public void shouldNotFound(String id) {
+    public void shouldNotFoundRepositoryDown(String id) {
         Mockito.doThrow(new Exception()).when(repository).findOrFailById(id);
+    }
+
+    public void shouldNotFound() {
+        Mockito.when(repository.findOrFailById(Mockito.anyString()))
+                .thenAnswer(
+                        invocation -> {
+                            throw new CustomerNotFound("");
+                        });
     }
 
     public void shouldEncode(String text, String encoded) {
