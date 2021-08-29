@@ -8,20 +8,18 @@ import com.iobuilders.bank.transfers.domain.TransferRepository;
 import java.math.BigDecimal;
 
 @Service
-public final class TransferDebitCreator {
-
+public final class TransferCreator {
     private final EventBus eventBus;
     private final TransferRepository repository;
 
-    public TransferDebitCreator(EventBus eventBus, TransferRepository repository) {
+    public TransferCreator(EventBus eventBus, TransferRepository repository) {
         this.eventBus = eventBus;
         this.repository = repository;
     }
 
-    // TODO Abstract (factory method?)
     public void create(TransferCreatorCommand command) {
         final var amount = new BigDecimal(command.getAmount());
-        final var transfer = Transfer.debit(command.getId(), command.getWalletId(), amount);
+        final var transfer = Transfer.create(command.getId(), command.getWalletId(), amount);
         repository.save(transfer);
         eventBus.publish(transfer.pullEvents());
     }

@@ -18,24 +18,6 @@ public final class Money implements Serializable {
         return new Money(amount, Currency.getInstance("EUR"));
     }
 
-    public static Money fromPositive(BigDecimal amount) {
-        ensureAmountIsPositive(amount);
-        return of(amount);
-    }
-
-    public static void ensureAmountIsPositive(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException(String.format("Amount %s must be positive", amount));
-        }
-    }
-
-    public static Money fromNegative(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) >= 0) {
-            throw new IllegalArgumentException(String.format("Amount %s must be negative", amount));
-        }
-        return of(amount);
-    }
-
     public Money increment(BigDecimal amountToAdd) {
         final var amountAdded = amount().add(amountToAdd);
         return new Money(amountAdded, currency());
@@ -44,6 +26,34 @@ public final class Money implements Serializable {
     public Money decrement(BigDecimal subtrahend) {
         final var amountSubtrahend = amount().subtract(subtrahend);
         return new Money(amountSubtrahend, currency());
+    }
+
+    public boolean isNegative(BigDecimal amount) {
+        return amount.compareTo(BigDecimal.ZERO) <= 0;
+    }
+
+    /**
+     * Guard clause to verify that a amount is positive
+     *
+     * @param amount Amount of money
+     * @throws IllegalArgumentException when is equal o less than 0
+     */
+    public static void ensureAmountIsPositive(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException(String.format("Amount %s must be positive", amount));
+        }
+    }
+
+    /**
+     * Guard clause to verify that a amount is negative
+     *
+     * @param amount Amount of money
+     * @throws IllegalArgumentException when is equal o greater than 0
+     */
+    public static void ensureAmountIsNegative(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) >= 0) {
+            throw new IllegalArgumentException(String.format("Amount %s must be negative", amount));
+        }
     }
 
     public Currency currency() {

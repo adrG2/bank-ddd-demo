@@ -3,7 +3,7 @@ PUT http://localhost:8080/transfers/credit
 Content-Type: application/json
 
 {
-  "walletId": "808fb610-c368-4365-902e-ec7ce293e502",
+  "walletId": "fff00e1b-e992-4535-b1bc-d874d0a6af1e",
   "amount": "20"
 }
 
@@ -12,7 +12,7 @@ PUT http://localhost:8080/transfers/debit
 Content-Type: application/json
 
 {
-  "walletId": "808fb610-c368-4365-902e-ec7ce293e502",
-  "amount": "-30"
+  "walletId": "fff00e1b-e992-4535-b1bc-d874d0a6af1e",
+  "amount": "-10"
 }
 

@@ -19,28 +19,22 @@ public final class Transfer extends AggregateRoot implements Serializable {
         this.money = money;
     }
 
-    public static Transfer credit(String id, String walletId, BigDecimal amount) {
+    public static Transfer create(String id, String walletId, BigDecimal amount) {
         final var transferId = new TransferId(id);
         final var transferWalletId = new WalletId(walletId);
-        final var transferMoney = Money.fromPositive(amount);
+        final var transferMoney = Money.of(amount);
         final var transfer = new Transfer(transferId, transferWalletId, transferMoney);
-        final var event =
-                new TransferCreditCreated(
-                        transferId.value(), transferWalletId.value(), transferMoney.amount());
-        transfer.pushEvent(event);
+        pushTransferCreatedEvent(amount, transferMoney, transfer);
         return transfer;
     }
 
-    public static Transfer debit(String id, String walletId, BigDecimal amount) {
-        final var transferId = new TransferId(id);
-        final var transferWalletId = new WalletId(walletId);
-        final var transferMoney = Money.fromNegative(amount);
-        final var transfer = new Transfer(transferId, transferWalletId, transferMoney);
-        final var event =
-                new TransferDebitCreated(
-                        transferId.value(), transferWalletId.value(), transferMoney.amount());
-        transfer.pushEvent(event);
-        return transfer;
+    private static void pushTransferCreatedEvent(
+            BigDecimal amount, Money transferMoney, Transfer transfer) {
+        if (transferMoney.isNegative(amount)) {
+            transfer.pushEvent(TransferDebitCreated.from(transfer));
+        } else {
+            transfer.pushEvent(TransferCreditCreated.from(transfer));
+        }
     }
 
     public TransferId id() {
