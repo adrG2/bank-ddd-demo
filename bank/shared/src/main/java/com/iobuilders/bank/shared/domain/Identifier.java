@@ -1,7 +1,5 @@
 package com.iobuilders.bank.shared.domain;
 
-import org.springframework.util.Assert;
-
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -17,8 +15,11 @@ public abstract class Identifier implements Serializable {
     }
 
     private static void ensureValidUuid(String value) throws IllegalArgumentException {
-        final var uuid = UUID.fromString(value);
-        Assert.notNull(uuid, "UUID null value");
+        try {
+            UUID.fromString(value);
+        } catch (IllegalArgumentException ex) {
+            throw new UuidNotValid(value, ex);
+        }
     }
 
     public String value() {

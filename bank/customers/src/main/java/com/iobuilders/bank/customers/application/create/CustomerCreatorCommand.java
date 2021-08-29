@@ -1,7 +1,8 @@
 package com.iobuilders.bank.customers.application.create;
 
 import com.iobuilders.bank.customers.domain.Customer;
-import org.springframework.util.Assert;
+
+import java.util.Objects;
 
 public final class CustomerCreatorCommand {
     private final String id;
@@ -22,7 +23,7 @@ public final class CustomerCreatorCommand {
     }
 
     public static CustomerCreatorCommand from(Customer customer) {
-        Assert.notNull(customer, "Customer should not be null");
+        Objects.requireNonNull(customer, "Customer should not be null");
         final var id = customer.id();
         final var email = customer.email();
         final var userName = customer.userName();

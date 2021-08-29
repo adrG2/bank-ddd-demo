@@ -5,6 +5,7 @@ import com.iobuilders.bank.customers.application.create.CustomerCreator;
 import com.iobuilders.bank.customers.application.create.CustomerCreatorCommand;
 import com.iobuilders.bank.customers.domain.CustomerExists;
 import com.iobuilders.bank.customers.domain.CustomerMother;
+import com.iobuilders.bank.shared.domain.UuidNotValid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -47,25 +48,13 @@ public final class CustomerCreatorShould extends CustomersUnitTestCase {
     }
 
     @Test
-    void throw_an_exception_when_customer_exists() {
-        final Executable executable =
-                () -> {
-                    final var customer = CustomerMother.random();
-                    shouldCustomerExists(customer);
-                    final var command = CustomerCreatorCommand.from(customer);
-                    creator.create(command);
-                };
-        assertThrows(CustomerExists.class, executable);
-    }
-
-    @Test
     void throw_an_exception_when_customer_is_null() {
         final Executable executable =
                 () -> {
                     final var command = CustomerCreatorCommand.from(null);
                     creator.create(command);
                 };
-        assertThrows(IllegalArgumentException.class, executable);
+        assertThrows(NullPointerException.class, executable);
     }
 
     @Test
@@ -87,6 +76,18 @@ public final class CustomerCreatorShould extends CustomersUnitTestCase {
                     final var command = CustomerCreatorCommand.from(customer);
                     creator.create(command);
                 };
-        assertThrows(IllegalArgumentException.class, executable);
+        assertThrows(UuidNotValid.class, executable);
+    }
+
+    @Test
+    void throw_an_exception_when_customer_exists() {
+        final Executable executable =
+                () -> {
+                    final var customer = CustomerMother.random();
+                    shouldThrowCustomerExists(customer);
+                    final var command = CustomerCreatorCommand.from(customer);
+                    creator.create(command);
+                };
+        assertThrows(CustomerExists.class, executable);
     }
 }

@@ -29,8 +29,10 @@ public class CustomersUnitTestCase extends UnitTestCase {
         Mockito.doThrow(new Exception()).when(repository).save(customer);
     }
 
-    public void shouldCustomerExists(Customer customer) {
-        Mockito.doThrow(new CustomerExists("1")).when(repository).save(customer);
+    public void shouldThrowCustomerExists(Customer customer) {
+        Mockito.doThrow(new CustomerExists(customer.id().value()))
+                .when(repository)
+                .save(Mockito.any(Customer.class));
     }
 
     public void shouldFind(String id, Customer customer) {
