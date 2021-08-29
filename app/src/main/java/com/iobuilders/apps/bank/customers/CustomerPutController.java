@@ -4,6 +4,7 @@ import com.iobuilders.bank.customers.application.create.CustomerCreator;
 import com.iobuilders.bank.customers.application.create.CustomerCreatorCommand;
 import com.iobuilders.bank.customers.domain.CustomerExists;
 import com.iobuilders.bank.shared.domain.UuidGenerator;
+import com.iobuilders.bank.shared.domain.UuidNotValid;
 import com.iobuilders.bank.shared.infrastructure.GuardClauses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,7 @@ public final class CustomerPutController {
         } catch (CustomerExists ex) {
             logger.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getLocalizedMessage());
-        } catch (IllegalArgumentException ex) {
+        } catch (UuidNotValid | IllegalArgumentException ex) {
             logger.error(ex.getMessage());
             return ResponseEntity.badRequest().build();
         }
