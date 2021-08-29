@@ -1,6 +1,7 @@
 package com.iobuilders.bank.customers.infrastructure;
 
 import com.iobuilders.bank.customers.domain.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Singleton;
@@ -22,11 +23,12 @@ public final class InMemoryCustomerRepository implements CustomerRepository {
 
     private void ensureCustomerIsValid(Customer customer) {
         if (customer == null) {
-            throw new IllegalArgumentException("Customer must not be null");
+            throw new IllegalArgumentException("Customer should not be null");
         }
 
-        if (customer.id() == null) {
-            throw new IllegalArgumentException("CustomerId must not be null");
+        final var id = customer.id();
+        if (id == null || StringUtils.isBlank(id.value())) {
+            throw new IllegalArgumentException("CustomerId should not be null");
         }
     }
 

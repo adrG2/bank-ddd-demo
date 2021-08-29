@@ -1,6 +1,7 @@
 package com.iobuilders.bank.customers;
 
 import com.iobuilders.bank.customers.domain.Customer;
+import com.iobuilders.bank.customers.domain.CustomerExists;
 import com.iobuilders.bank.customers.domain.CustomerRepository;
 import com.iobuilders.bank.shared.domain.BankPasswordEncoder;
 import com.iobuilders.bank.shared.infrastructure.UnitTestCase;
@@ -26,6 +27,10 @@ public class CustomersUnitTestCase extends UnitTestCase {
 
     public void shouldNotHaveSaved(Customer customer) {
         Mockito.doThrow(new Exception()).when(repository).save(customer);
+    }
+
+    public void shouldCustomerExists(Customer customer) {
+        Mockito.doThrow(new CustomerExists("1")).when(repository).save(customer);
     }
 
     public void shouldFind(String id, Customer customer) {

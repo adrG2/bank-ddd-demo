@@ -10,7 +10,7 @@ public abstract class Identifier implements Serializable {
     protected final String value;
 
     public Identifier(String value) {
-        Objects.requireNonNull(value, "Identifier value must not be null");
+        Objects.requireNonNull(value, "Identifier should not be null");
         ensureValidUuid(value);
 
         this.value = value;
