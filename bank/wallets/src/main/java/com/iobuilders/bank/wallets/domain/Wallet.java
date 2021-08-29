@@ -26,15 +26,8 @@ public final class Wallet extends AggregateRoot {
         return wallet;
     }
 
-    public static Wallet createWithInitialBalance(String id, String customerId, BigDecimal amount) {
-        Money.ensureAmountIsPositive(amount);
-        final var wallet =
-                new Wallet(new WalletId(id), new CustomerId(customerId), Money.of(amount));
-        wallet.pushEvent(new WalletCreated(id, customerId));
-        return wallet;
-    }
-
     public Wallet debit(BigDecimal amount) {
+        Money.ensureAmountIsNegative(amount);
         return new Wallet(id(), customerId(), balance().decrement(amount.abs()));
     }
 

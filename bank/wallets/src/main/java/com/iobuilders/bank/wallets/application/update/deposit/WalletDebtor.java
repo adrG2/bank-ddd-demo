@@ -6,11 +6,11 @@ import com.iobuilders.bank.wallets.domain.WalletRepository;
 import java.math.BigDecimal;
 
 @Service
-public final class WalletDebit {
+public final class WalletDebtor {
 
     private final WalletRepository repository;
 
-    public WalletDebit(WalletRepository repository) {
+    public WalletDebtor(WalletRepository repository) {
         this.repository = repository;
     }
 

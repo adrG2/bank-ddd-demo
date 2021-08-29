@@ -9,5 +9,5 @@ Content-Type: application/json
 }
 
 ### Step 2: Get a Customer
-GET http://localhost:8080/customers/90d50a32-3849-42d3-9c8f-d2e68523336b
+GET http://localhost:8080/customers/31b5c2b8-e19e-4658-b2f1-a7fe8def2549
 Content-Type: application/json
