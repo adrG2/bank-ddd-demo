@@ -13,15 +13,15 @@ public final class CreditOnTransferCreated {
 
     private static final Logger logger =
             LoggerFactory.getLogger(String.valueOf(CreditOnTransferCreated.class));
-    private final WalletCreditor creditor;
+    private final WalletCreditCreator creditor;
 
-    public CreditOnTransferCreated(WalletCreditor creditor) {
+    public CreditOnTransferCreated(WalletCreditCreator creditor) {
         this.creditor = creditor;
     }
 
     @EventListener
     public void on(TransferCreditCreated event) {
         logger.debug("{} received: {}", event.eventName(), event);
-        creditor.credit(event.getWalletId(), event.getAmount());
+        creditor.create(event.getWalletId(), event.getAmount());
     }
 }

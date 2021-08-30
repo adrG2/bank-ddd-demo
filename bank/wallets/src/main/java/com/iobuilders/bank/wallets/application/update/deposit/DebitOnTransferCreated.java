@@ -12,15 +12,15 @@ import org.springframework.context.event.EventListener;
 public final class DebitOnTransferCreated {
 
     private static final Logger logger = LoggerFactory.getLogger(DebitOnTransferCreated.class);
-    private final WalletDebtor debtor;
+    private final WalletDebitCreator debtor;
 
-    public DebitOnTransferCreated(WalletDebtor debtor) {
+    public DebitOnTransferCreated(WalletDebitCreator debtor) {
         this.debtor = debtor;
     }
 
     @EventListener
     public void on(TransferDebitCreated event) {
         logger.debug("{} received: {}", event.eventName(), event);
-        debtor.debit(event.getWalletId(), event.getAmount());
+        debtor.create(event.getWalletId(), event.getAmount());
     }
 }
